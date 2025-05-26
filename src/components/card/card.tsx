@@ -19,7 +19,7 @@ export default function Card({conference}: any) {
             <div className="card-location">{ conference.locations.length ? conference.locations[0].address + ', ' + conference.locations[0].country.name : null }</div>
         </div>
         <div className="card-footer">
-            <a href="#" className="btn btn-primary">View Details</a>
+            <a href={'detail/' + conference.id} className="btn btn-primary">View Details</a>
         </div>
     </div>
   );
