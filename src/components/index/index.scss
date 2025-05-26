@@ -1,0 +1,44 @@
+// Sorting controls styling
+.sorting-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+
+  label {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #22223b;
+    margin-right: 0.5rem;
+    letter-spacing: 0.01em;
+  }
+
+  select {
+    padding: 0.4rem 1.2rem 0.4rem 0.7rem;
+    font-size: 1rem;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 6px;
+    background: #f8fafc;
+    color: #22223b;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    cursor: pointer;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+
+    &:focus {
+      border-color: #0070f3;
+      box-shadow: 0 0 0 2px rgba(0,112,243,0.15);
+      background: #fff;
+    }
+  }
+}
+
+// Visually hidden class for accessibility
+.visually-hidden {
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+}
