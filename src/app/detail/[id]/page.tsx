@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useRouter } from 'next/navigation';
@@ -54,38 +53,70 @@ export default function ConferenceDetailPage() {
     skip: !conferenceId,
   });
 
-  if (!conferenceId) return <p>Invalid conference ID.</p>;
-  if (loading) return <div className="detail-loading">Loading...</div>;
-  if (error) return <div className="detail-error">Error: {error.message}</div>;
+  if (!conferenceId)
+    return (
+      <main role="main" tabIndex={-1}>
+        <p role="alert">Invalid conference ID.</p>
+      </main>
+    );
+  if (loading)
+    return (
+      <main role="main" tabIndex={-1}>
+        <div className="detail-loading" role="status" aria-live="polite">
+          Loading...
+        </div>
+      </main>
+    );
+  if (error)
+    return (
+      <main role="main" tabIndex={-1}>
+        <div className="detail-error" role="alert">
+          Error: {error.message}
+        </div>
+      </main>
+    );
 
   const conference = data?.conference;
-  if (!conference) return <div className="detail-error">Conference not found.</div>;
+  if (!conference)
+    return (
+      <main role="main" tabIndex={-1}>
+        <div className="detail-error" role="alert">
+          Conference not found.
+        </div>
+      </main>
+    );
 
   const location = conference.locations?.[0];
 
   return (
-    <div className="conference-detail-page">
-      <button
-        className="back-button"
-        onClick={() => router.back()}
-        aria-label="Back"
-      >
-        ← Back
-      </button>
-      <div className="conference-header">
+    <main className="conference-detail-page" role="main" tabIndex={-1}>
+      <header className="conference-header" role="banner">
+        <button
+          className="back-button"
+          onClick={() => router.back()}
+          aria-label="Go back to previous page"
+          title="Go back"
+        >
+          ← Back
+        </button>
         {location?.image?.url && (
           <img
             src={location.image.url}
-            alt={location.image.title || conference.name}
+            alt={
+              location.image.title
+                ? `${location.image.title} - ${conference.name}`
+                : conference.name
+            }
             className="conference-image"
           />
         )}
         <div className="conference-header-text">
           <h1 className="conference-title">{conference.name}</h1>
-          <p className="conference-slogan">{conference.slogan}</p>
+          {conference.slogan && (
+            <p className="conference-slogan">{conference.slogan}</p>
+          )}
           <div className="conference-dates">
-            <strong>Dates:</strong>{" "}
-            {conference.startDate} – {conference.endDate}
+            <strong>Dates:</strong> {conference.startDate} – {conference.endDate}
           </div>
           <div className="conference-venue">
             <strong>Venue:</strong> {location?.name || "N/A"}
@@ -95,26 +126,35 @@ export default function ConferenceDetailPage() {
             <strong>Country:</strong> {location?.country?.name || "N/A"}
           </div>
         </div>
-      </div>
-      <div className="conference-section">
-        <h2>Organizer</h2>
+      </header>
+      <section className="conference-section" aria-labelledby="organizer-heading">
+        <h2 id="organizer-heading">Organizer</h2>
         <div className="organizer-info">
           {conference.organizer?.image?.url && (
             <img
               src={conference.organizer.image.url}
-              alt={conference.organizer.image.title || conference.organizer.name}
+              alt={
+                conference.organizer.image.title
+                  ? `${conference.organizer.image.title} - ${conference.organizer.name}`
+                  : conference.organizer.name
+              }
               className="organizer-image"
             />
           )}
           <div>
-            <div><strong>Name:</strong> {conference.organizer?.name}</div>
-            <div><strong>Company:</strong> {conference.organizer?.company}</div>
+            <div>
+              <strong>Name:</strong> {conference.organizer?.name}
+            </div>
+            <div>
+              <strong>Company:</strong> {conference.organizer?.company}
+            </div>
             {conference.organizer?.social?.youtube && (
               <div>
                 <a
                   href={conference.organizer.social.youtube}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={`YouTube Channel for ${conference.organizer?.name}`}
                 >
                   YouTube Channel
                 </a>
@@ -122,15 +162,17 @@ export default function ConferenceDetailPage() {
             )}
           </div>
         </div>
-      </div>
+      </section>
       {conference.series && (
-        <div className="conference-section">
-          <h2>Series</h2>
+        <section className="conference-section" aria-labelledby="series-heading">
+          <h2 id="series-heading">Series</h2>
           <div>
-            <div><strong>Name:</strong> {conference.series.name}</div>
+            <div>
+              <strong>Name:</strong> {conference.series.name}
+            </div>
           </div>
-        </div>
+        </section>
       )}
-    </div>
+    </main>
   );
 }
