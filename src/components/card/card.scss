@@ -21,6 +21,13 @@
     .card-body {
         padding: 1.25rem;
 
+        .card-image{
+            display: block;
+            height: 150px;
+            width: 100%;
+            object-fit: contain;
+        }
+
         .card-date {
             display: block;
             font-size: 0.875rem;

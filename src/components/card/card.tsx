@@ -1,18 +1,25 @@
+import moment from 'moment';
 import "./card.scss";
 
-export default function Card() {
+export default function Card({conference}: any) {
+
+  function formateDate(date:Date){
+    return moment(date).format('LL');
+  }
+
   return (
     <div className="card">
         <div className="card-header">
-            <h2 className="card-title">Card Title</h2>
+            <h2 className="card-title">{ conference.name }</h2>
         </div>
         <div className="card-body">
-            <span className="card-date">Date</span>
-            <div className="card-location">Location</div>
-            <div className="card-slogan">Slogan</div>
+            <img className='card-image' src={conference.organizer.image.url} />
+            <span className="card-slogan">{ conference.slogan }</span>
+            <span className="card-date">{ formateDate(conference.startDate) } - { formateDate(conference.endDate) }</span>
+            <div className="card-location">{ conference.locations.length ? conference.locations[0].address + ', ' + conference.locations[0].country.name : null }</div>
         </div>
         <div className="card-footer">
-            <button className="btn btn-primary">View</button>
+            <a href="#" className="btn btn-primary">View Details</a>
         </div>
     </div>
   );
