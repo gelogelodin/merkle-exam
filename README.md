@@ -1,6 +1,6 @@
 # Merkle Exam Conference Explorer
 
-Demo Link: 
+Demo Link: [https://merkle-exam.vercel.app/](https://merkle-exam.vercel.app/)
 
 1. npm install
 2. npm run dev
